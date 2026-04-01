@@ -7,8 +7,8 @@ Node.js & npm Lab — CLI Calculator
 LAB CREATION INSTRUCTIONS
 ===================================================================
 
-1. Create a folder name it as utils.
-2. Inside the utils folder create an operation.js file and parser.js.
+1. Create a folder name it as utils2.
+2. Inside the utils2 folder create an operation.js file and parser.js.
 3. In the oerpation.js file create the following functions:
 
     - Note: you will write the code inside the return statement's curly braces.
@@ -69,13 +69,13 @@ TODO 1: Import Required Modules (in calculator.js)
 Goal: Import the modules and npm package you'll need.
 
 Hints:
-- Import the operation functions from "./utils/operations.js"
-- Import the parser functions from "./utils/parser.js"
+- Import the operation functions from "./utils2/operations.js"
+- Import the parser functions from "./utils2/parser.js"
 - Import lodash (the third-party package you installed)
 
 Example:
-  import { add, subtract } from "./utils/operations.js";
-  import { parseNumbers, isValidOperation } from "./utils/parser.js";
+  import { add, subtract } from "./utils2/operations.js";
+  import { parseNumbers, isValidOperation } from "./utils2/parser.js";
   import _ from "lodash";
 
 ===================================================================
@@ -125,7 +125,7 @@ Example structure:
   console.log(`Result: ${result}`);
 
 ===============================================================
-TODO 4: Create Math Operation Functions (in utils/operations.js)
+TODO 4: Create Math Operation Functions (in utils2/operations.js)
 ===============================================================
 Goal: Implement functions that perform mathematical operations on arrays of numbers.
 
@@ -156,7 +156,7 @@ Example for add:
   }
 
 ===============================================================
-TODO 5: Create Parser Functions Using Lodash (in utils/parser.js)
+TODO 5: Create Parser Functions Using Lodash (in utils2/parser.js)
 ===============================================================
 Goal: Use lodash (a third-party npm package) to parse and validate input.
 
@@ -212,4 +212,43 @@ After completing all TODOs, test your calculator:
   Expected output: Invalid operation. Use: add, subtract, multiply, or divide
 
 */
+
+import {add, subtract, multiply, divide} from "./utils/operation.js";
+import {parseNumber, isValidOperation} from "./utils/parser.js";
+import _ from "loadsh";
+
+const operation= process.argv[2];
+const inputNumber = process.argv.slice(3);
+
+if (!isValidOperation(operation)) {
+    console.log("Invalid operation. Use: add, subtract, multiply, or divide");
+    process.exit(1);
+}
+
+const numbers = parseNumber(inputNumber);
+if (_.isEmpty(numbers)){
+    console.log("Invalid numbers.");
+    process.exit(1);
+}
+
+let result ;
+switch (operation){
+    case "add":
+        result = add(numbers);
+        break;
+    case "subtract":
+        result = subtract(numbers);
+        break;
+    case "divide":
+        result = divide(numbers);
+        break;
+    case "multiply":
+        result = multiply(numbers);
+        break;
+    default:
+        console.log("Invalid operation. Use: add, subtract, multiply, or divide");
+        process.exit(1);
+}
+console.log(`Result: ${result}`);
+
 

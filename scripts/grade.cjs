@@ -5,8 +5,8 @@
  *
  * Grades ONLY based on the lab's TODOs / setup items:
  *  - calculator.js
- *  - utils/parser.js
- *  - utils/operation.js (or utils/operations.js)
+ *  - utils2/parser.js
+ *  - utils2/operation.js (or utils2/operations.js)
  *
  * Marking:
  * - 80 marks for lab TODOs / structure
@@ -22,22 +22,22 @@
  * - grader file:   6-2-node-npm-main/scripts/grade.cjs
  * - student files:
  *      6-2-node-npm-main/calculator.js
- *      6-2-node-npm-main/utils/parser.js
- *      6-2-node-npm-main/utils/operation.js
+ *      6-2-node-npm-main/utils2/parser.js
+ *      6-2-node-npm-main/utils2/operation.js
  *
  * Notes:
  * - Ignores JS comments (starter TODO comments do NOT count).
  * - Checks are still lenient, but now verify top-level implementation logic too.
  * - calculator.js existence is NOT part of the "creation" marks.
  * - Folder/file creation grading only applies to:
- *      utils/
- *      utils/parser.js
- *      utils/operation.js OR utils/operations.js
+ *      utils2/
+ *      utils2/parser.js
+ *      utils2/operation.js OR utils2/operations.js
  * - npm install / lodash installation is NOT graded.
  * - Manual testing commands are NOT graded.
  * - Accepts either:
- *      utils/operation.js
- *   or utils/operations.js
+ *      utils2/operation.js
+ *   or utils2/operations.js
  *   because the lab text and examples use both forms.
  */
 
@@ -261,7 +261,7 @@ function isLabProjectFolder(p) {
     return (
       fs.existsSync(path.join(p, "package.json")) &&
       fs.existsSync(path.join(p, "calculator.js")) &&
-      fs.existsSync(path.join(p, "utils"))
+      fs.existsSync(path.join(p, "utils2"))
     );
   } catch {
     return false;
@@ -298,7 +298,7 @@ const PROJECT_ROOT = pickProjectRoot(REPO_ROOT);
    Find files
 -------------------------------- */
 const calculatorFile = path.join(PROJECT_ROOT, "calculator.js");
-const utilsDir = path.join(PROJECT_ROOT, "utils");
+const utilsDir = path.join(PROJECT_ROOT, "utils2");
 const parserFile = path.join(utilsDir, "parser.js");
 
 const operationFileCandidates = [
@@ -385,21 +385,21 @@ const isValidOperationBody = bodyOfFunction(parser, "isValidOperation");
 -------------------------------- */
 
 /**
- * TODO 1 — Required utils structure only
+ * TODO 1 — Required utils2 structure only
  * calculator.js is NOT part of creation grading.
  */
 {
   const required = [
     {
-      label: "utils folder exists in the project root",
+      label: "utils2 folder exists in the project root",
       ok: existsDir(utilsDir),
     },
     {
-      label: "utils/parser.js exists",
+      label: "utils2/parser.js exists",
       ok: existsFile(parserFile),
     },
     {
-      label: "utils/operation.js or utils/operations.js exists",
+      label: "utils2/operation.js or utils2/operations.js exists",
       ok: !!operationFile,
     },
   ];
@@ -416,14 +416,14 @@ const isValidOperationBody = bodyOfFunction(parser, "isValidOperation");
   } else {
     const required = [
       {
-        label: "Imports operation functions from ./utils/operation(s).js",
+        label: "Imports operation functions from ./utils2/operation(s).js",
         ok: hasAny(calculator, [
           /import\s*\{\s*[^}]*\badd\b[^}]*\bsubtract\b[^}]*\bmultiply\b[^}]*\bdivide\b[^}]*\}\s*from\s*['"]\.\/utils\/operations?\.js['"]/i,
           /import\s*\{\s*[^}]*\}\s*from\s*['"]\.\/utils\/operations?\.js['"]/i,
         ]),
       },
       {
-        label: "Imports parser functions from ./utils/parser.js",
+        label: "Imports parser functions from ./utils2/parser.js",
         ok: hasAny(calculator, [
           /import\s*\{\s*[^}]*\bparseNumbers\b[^}]*\bisValidOperation\b[^}]*\}\s*from\s*['"]\.\/utils\/parser\.js['"]/i,
           /import\s*\{\s*[^}]*\}\s*from\s*['"]\.\/utils\/parser\.js['"]/i,
@@ -523,7 +523,7 @@ const isValidOperationBody = bodyOfFunction(parser, "isValidOperation");
  */
 {
   if (!operationCode) {
-    failTask(tasks[4], "utils/operation.js or utils/operations.js not found / unreadable.");
+    failTask(tasks[4], "utils2/operation.js or utils2/operations.js not found / unreadable.");
   } else {
     const required = [
       {
@@ -574,7 +574,7 @@ const isValidOperationBody = bodyOfFunction(parser, "isValidOperation");
  */
 {
   if (!operationCode) {
-    failTask(tasks[5], "utils/operation.js or utils/operations.js not found / unreadable.");
+    failTask(tasks[5], "utils2/operation.js or utils2/operations.js not found / unreadable.");
   } else {
     const required = [
       {
@@ -625,7 +625,7 @@ const isValidOperationBody = bodyOfFunction(parser, "isValidOperation");
  */
 {
   if (!parser) {
-    failTask(tasks[6], "utils/parser.js not found / unreadable.");
+    failTask(tasks[6], "utils2/parser.js not found / unreadable.");
   } else {
     const required = [
       {
@@ -666,7 +666,7 @@ const isValidOperationBody = bodyOfFunction(parser, "isValidOperation");
  */
 {
   if (!parser) {
-    failTask(tasks[7], "utils/parser.js not found / unreadable.");
+    failTask(tasks[7], "utils2/parser.js not found / unreadable.");
   } else {
     const required = [
       {
@@ -730,9 +730,9 @@ ${submissionLine}
 - Repo root (cwd): ${REPO_ROOT}
 - Detected project root: ${PROJECT_ROOT}
 - Calculator: ${existsFile(calculatorFile) ? `✅ ${calculatorFile}` : "❌ calculator.js not found"}
-- Utils folder: ${existsDir(utilsDir) ? `✅ ${utilsDir}` : "❌ utils folder not found"}
-- Parser: ${existsFile(parserFile) ? `✅ ${parserFile}` : "❌ utils/parser.js not found"}
-- Operation file: ${operationFile ? `✅ ${operationFile}` : "❌ utils/operation.js or utils/operations.js not found"}
+- Utils folder: ${existsDir(utilsDir) ? `✅ ${utilsDir}` : "❌ utils2 folder not found"}
+- Parser: ${existsFile(parserFile) ? `✅ ${parserFile}` : "❌ utils2/parser.js not found"}
+- Operation file: ${operationFile ? `✅ ${operationFile}` : "❌ utils2/operation.js or utils2/operations.js not found"}
 
 ## Marks Breakdown
 
@@ -797,9 +797,9 @@ ${submissionLine}
 - Repo root (cwd): ${REPO_ROOT}
 - Detected project root: ${PROJECT_ROOT}
 - Calculator: ${existsFile(calculatorFile) ? `✅ ${calculatorFile}` : "❌ calculator.js not found"}
-- Utils folder: ${existsDir(utilsDir) ? `✅ ${utilsDir}` : "❌ utils folder not found"}
-- Parser: ${existsFile(parserFile) ? `✅ ${parserFile}` : "❌ utils/parser.js not found"}
-- Operation file: ${operationFile ? `✅ ${operationFile}` : "❌ utils/operation.js or utils/operations.js not found"}
+- Utils folder: ${existsDir(utilsDir) ? `✅ ${utilsDir}` : "❌ utils2 folder not found"}
+- Parser: ${existsFile(parserFile) ? `✅ ${parserFile}` : "❌ utils2/parser.js not found"}
+- Operation file: ${operationFile ? `✅ ${operationFile}` : "❌ utils2/operation.js or utils2/operations.js not found"}
 
 ---
 
